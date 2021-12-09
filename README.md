@@ -1,3 +1,30 @@
+# Managed Service Registry Cluster Configuration
+
+After installing `OpenShift GitOps` in your OpenShift 4.9+ cluster, create the following resource:
+
+
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: service-registry-cluster-config
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: environments/overlays/staging
+    repoURL: 'https://github.com/sbose78/service-registry-cluster-gitops'
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - Validate=false
+      - PruneLast=true
+```
+
+
 # GitOps Repository Template
 
 This is an example of what the AppStudio GitOps repository might look like for a simple application. This example contains two components ('component A' and 'component B'), and two environments ('dev' and 'staging').

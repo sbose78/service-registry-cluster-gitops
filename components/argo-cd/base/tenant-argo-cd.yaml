@@ -3,7 +3,15 @@ kind: ArgoCD
 metadata:
   name: tenant-argocd
   namespace: service-registry-staging 
-spec: 
+spec:
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      clusters:
+      - '*'
+      kinds:
+      - TaskRun
+      - PipelineRun
   server:
     autoscale:
       enabled: false
